@@ -6,14 +6,14 @@ RUN apk add --no-cache libpng-dev curl-dev sqlite-dev
 
 RUN docker-php-ext-install gd mbstring pdo_sqlite
 
-RUN chown www-data:www-data /var/www/html
+RUN chown -R www-data:www-data /var/www
 
 USER www-data
 
-RUN echo "${VERSION}"
-
 RUN wget "https://github.com/SSilence/selfoss/releases/download/${VERSION}/selfoss-${VERSION}.zip" \
     && unzip "selfoss-${VERSION}.zip" \
-    && rm "selfoss-${VERSION}.zip"
+    && rm "selfoss-${VERSION}.zip" \
+    && mv ./data /var/www/data \
+    && ln -s /var/www/data data
 
-VOLUME [ "/var/www/html" ]
+VOLUME [ "/var/www/html", "/var/www/data" ]

@@ -5,15 +5,14 @@ services:
     ports: 
       - "80:80"
     volumes:
-      - data-volume:/var/www/html
+      - app-volume:/var/www/html:ro
+
   selfoss:
     build: ./app
     volumes:
-      - data-volume:/var/www/html
-    environment:
-      - "selfoss_logger_level=DEBUG"
+      - app-volume:/var/www/html
+      - data-volume:/var/www/data
 
 volumes:
   data-volume:
-
-    
+  app-volume:
