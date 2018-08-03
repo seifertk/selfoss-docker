@@ -1,0 +1,19 @@
+version: '2'
+services:
+  web:
+    build: ./web
+    ports: 
+      - "80:80"
+    volumes:
+      - data-volume:/var/www/html
+  selfoss:
+    build: ./app
+    volumes:
+      - data-volume:/var/www/html
+    environment:
+      - "selfoss_logger_level=DEBUG"
+
+volumes:
+  data-volume:
+
+    
